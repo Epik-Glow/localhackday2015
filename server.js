@@ -9,7 +9,7 @@ var numUsers = 0;
 var rooms = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
-app.use(express.static('/', __dirname + 'public'));
+app.use(express.static('/public'));
 
 app.get('/', function(req, res) {
     res.sendFile('/public/index.html');
