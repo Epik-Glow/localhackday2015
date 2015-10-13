@@ -1,5 +1,5 @@
 var app = require('express')();
-var server = require('http').Server(app);
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var compression = require('compression');
 
