@@ -1,6 +1,5 @@
-var express = require('express');
-var http = require('http').Server(app);
-var app = express();
+var app = require('express')();
+var server = require('http').Server(app);
 var io = require('socket.io')(http);
 var compression = require('compression');
 
@@ -39,7 +38,7 @@ io.on('connection', function(socket) {
     socket.on('roomCode', function(code) {
         if (code.toString() in rooms) {
             user.room = code;
-            socket.join(code); // Joins socket with the unique room
+            //socket.join(code); // Joins socket with the unique room
             socket.emit('room', {
                 exists: true
             });
