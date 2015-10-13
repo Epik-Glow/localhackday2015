@@ -68,7 +68,7 @@ io.on('connection', function(socket) {
             socket.emit('vidResponse', {
                 empty: false,
                 vid: rooms[user.code][0]
-            }
+            });
         } else {
             socket.emit('vidResponse', {
                 empty: true
