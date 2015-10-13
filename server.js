@@ -9,7 +9,7 @@ var numUsers = 0;
 var rooms = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
-app.use(express.static('/public'));
+//app.use(express.static('/public'));
 
 app.get('/', function(req, res) {
     res.sendFile('/public/index.html');
@@ -22,7 +22,7 @@ app.route('/room')
 
             // Check to see if the room already exists
             if (!(code.toString() in room)) {
-                room[code] = {};
+                room[code] = [];
 
                 res.status(201).send(JSON.stringify(code));
                 break;
@@ -50,7 +50,9 @@ io.on('connection', function(socket) {
         }
     });
 
-    socket.on('playlistUpdate', function(roomCode, videoId) {});
+    socket.on('playlistAdd', function(videoId) {
+        room[user.code].push(videoId);
+    });
 
     socket.on('disconnect', function() {
         console.log('User disconnected');
