@@ -17,11 +17,11 @@ app.route('/room')
             var code = Math.floor(Math.random() * 1000000);
 
             // Check to see if the room already exists
-            if (code.toString() in room) {
+            if (!(code.toString() in room)) {
                 room[code] = {};
 
                 // TODO send code to show on page
-                res.send(code);
+                res.send(JSON.stringify(code));
                 break;
             }
         }
