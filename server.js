@@ -32,6 +32,7 @@ io.on('connection', function(socket) {
     console.log('User connected');
 
     io.emit('test', { code: '123456' });
+    console.log('Sent \'test\' event');
     socket.on('disconnect', function() {
         console.log('User disconnected');
     });
