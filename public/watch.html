@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Website</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="watch.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+
+
+</head>
+<body>
+  <div class="jumbotron">
+    <h1>YouTube Party</h1>
+  </div>
+  <div class="container">
+    <div id="status">
+    </div>
+    <div="row">
+    <form id="roomForm" class="form-inline" >
+      <div class="form-group">
+        <label for="roomInput ">Connect to Room:</label>
+        <input type="text" class="form-control" id="roomInput" placeholder="Room ID">
+      </div>
+      <button type="submit" class="btn btn-default" id="roomButton">Submit</button>
+    </form>
+  </div>
+    <div class="row" id="buttons">
+      <div class="col-xs-6 col-sm-3 col-md-1 col-md-offset-2"><button class="btn btn-default btn-block btn-lg" id="playButton">
+        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+      </button></div>
+      <div class="col-xs-6 col-sm-3 col-md-1"><button class="btn btn-default btn-block btn-lg" id="Mute">
+        <span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
+      </button></div>
+      <div class="col-xs-12  col-sm-6 col-md-2">
+        <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span><input type="range"></input>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <form id="urlForm" class="form-horizontal">
+        <div class="form-group">
+          <label for="youtubeUrl" class="col-md-2 control-label">Youtube URL</label>
+          <div class="col-md-5">
+            <input type="url" class="form-control" id="youtubeUrl" placeholder="URL">
+
