@@ -1,8 +1,10 @@
 var express = require('express');
+var http = require('http').Server(app);
 var app = express();
+var io = require('socket.io')(http);
 var compression = require('compression');
 
-var room = {}; // Contains rooms by code
+var room = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
 app.use(express.static(__dirname + '/public'));
@@ -20,14 +22,22 @@ app.route('/room')
             if (!(code.toString() in room)) {
                 room[code] = {};
 
-                // TODO send code to show on page
-                res.send(JSON.stringify(code));
+                res.status(201).send(JSON.stringify(code));
                 break;
             }
         }
     });
 
-var server = app.listen(8080, function() {
+io.on('connection', function(socket) {
+    console.log('User connected');
+
+    io.emit('test', { code: '123456' });
+    socket.on('disconnect', function() {
+        console.log('User disconnected');
+    });
+});
+
+app.listen(8080, function() {
     var host = server.address()
         .address;
     var port = server.address()
@@ -35,4 +45,3 @@ var server = app.listen(8080, function() {
 
     console.log('Listening on port at http://%s:%s', host, port);
 });
-
