@@ -8,6 +8,7 @@ $(document).ready(function(){
     socket.on('connect', function(){
 	$("#roomForm").show();
 	$("#status").hide();
+
 	$("#roomForm").on('submit', function (e) {
 	    e.preventDefault();
 	    $("#roomButton").attr("disabled", "disabled");
@@ -51,7 +52,7 @@ $(document).ready(function(){
 
 	$("#urlForm").on('submit', function (e) {
 	    e.preventDefault();
-
+	    
 
 
 	});
