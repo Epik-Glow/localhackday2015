@@ -21,8 +21,8 @@ app.route('/room')
             var code = Math.floor(Math.random() * 1000000);
 
             // Check to see if the room already exists
-            if (!(code.toString() in room)) {
-                room[code] = [];
+            if (!(code.toString() in rooms)) {
+                rooms[code] = [];
 
                 res.status(201).send(JSON.stringify(code));
                 break;
@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('playlistAdd', function(videoId) {
-        room[user.code].push(videoId);
+        rooms[user.code].push(videoId);
     });
 
     socket.on('disconnect', function() {
@@ -67,3 +67,4 @@ var server = app.listen(8080, function() {
 
     console.log('Listening on port at http://%s:%s', host, port);
 });
+
