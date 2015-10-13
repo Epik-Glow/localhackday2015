@@ -51,7 +51,29 @@ io.on('connection', function(socket) {
     });
 
     socket.on('playlistAdd', function(videoId) {
-        rooms[user.code].push(videoId);
+        if (user.code.toString() in rooms) {
+            rooms[user.code].push(videoId);
+            socket.emit('playlistAdd', {
+                added: true
+            });
+        } else {
+            socket.emit('playlistAdd', {
+                added: false
+            });
+        }
+    });
+
+    socket.on('vidReq', function() {
+        if (user.code.toString() in rooms) {
+            socket.emit('vidResponse', {
+                empty: false,
+                vid: rooms[user.code][0]
+            }
+        } else {
+            socket.emit('vidResponse', {
+                empty: true
+            });
+        }
     });
 
     socket.on('disconnect', function() {
