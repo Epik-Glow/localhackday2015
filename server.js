@@ -37,7 +37,7 @@ io.on('connection', function(socket) {
     });
 });
 
-var server = app.listen(8080, function() {
+var server = http.listen(8080, function() {
     var host = server.address()
         .address;
     var port = server.address()
