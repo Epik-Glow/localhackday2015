@@ -22,7 +22,7 @@ app.route('/room')
 
             // Check to see if the room already exists
             if (!(code.toString() in room)) {
-                room[code] = [];
+                rooms[code] = [];
 
                 res.status(201).send(JSON.stringify(code));
                 break;
@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('playlistAdd', function(videoId) {
-        room[user.code].push(videoId);
+        rooms[user.code].push(videoId);
     });
 
     socket.on('disconnect', function() {

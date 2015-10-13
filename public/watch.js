@@ -1,60 +1,61 @@
 $(document).ready(function(){
-  var connection;
-  var socket = io("ws://45.55.144.205:8080");
+    var connection;
+    var socket = io("ws://45.55.144.205:8080");
 
-  //$("#buttons").hide();
-  $("#status").hide();
+    $("#buttons").hide();
+    $("#roomForm").hide();
 
-  socket.on('connect', function(){
+    socket.on('connect', function(){
+	$("#roomForm").show();
+	$("#status").hide();
+	$("#roomForm").on('submit', function (e) {
+	    e.preventDefault();
+	    $("#roomButton").attr("disabled", "disabled");
 
-    $("#roomForm").on('submit', function (e) {
-      e.preventDefault();
-      $("#roomButton").attr("disabled", "disabled");
+	    $("#roomButton").html("Connecting...");
+	    $("#status").removeAttr("class");
+	    $("#status").html("");
+	    id = $("#roomInput").val();
+	    console.log(socket);
 
-      $("#roomButton").html("Connecting...");
-      $("#status").removeAttr("class");
-      $("#status").html("");
-      id = $("#roomInput").val();
-      console.log(socket);
+	    socket.emit("roomCode", id);
+	});
 
-      socket.emit("roomCode", id);
+	socket.on('test', function(msg){
+	    console.log(msg);
+	});
+
+	socket.on('room', function(msg){
+	    console.log(msg.exists);
+	    if (!msg.exists) {
+		$("#roomButton").html("Submit");
+		$("#roomButton").removeAttr("disabled");
+		$("#status").html("Room does not exist");
+		$("#status").attr("class", "alert alert-danger");
+		$("#status").show(500);
+	    } else {
+		$("#roomForm").hide(500);
+		$("#status").html("Connected to " + id);
+		$("#status").show(500);
+		$("#buttons").show(500);
+	    }
+	});
+
+	socket.on('error', function(error){
+	    console.log(error);
+	    $("#roomButton").html("Submit");
+	    $("#roomButton").removeAttr("disabled");
+	    $("#status").html("Could not connect");
+	    $("#status").attr("class", "alert alert-danger");
+	});
+
+	$("#urlForm").on('submit', function (e) {
+	    e.preventDefault();
+
+
+
+	});
+
     });
-
-    socket.on('test', function(msg){
-      console.log(msg);
-    });
-
-    socket.on('room', function(msg){
-      console.log(msg.exists);
-      if (!msg.exists) {
-        $("#roomButton").html("Submit");
-        $("#roomButton").removeAttr("disabled");
-        $("#status").html("Room does not exist");
-        $("#status").attr("class", "alert alert-danger");
-        $("#status").show(500);
-      } else {
-        $("#roomForm").hide(500);
-        $("#status").html("Connected to " + id);
-        $("#status").show(500);
-        $("#buttons").show(500);
-      }
-    });
-
-    socket.on('error', function(error){
-      console.log(error);
-      $("#roomButton").html("Submit");
-      $("#roomButton").removeAttr("disabled");
-      $("#status").html("Could not connect");
-      $("#status").attr("class", "alert alert-danger");
-    });
-
-    $("#urlForm").on('submit', function (e) {
-      e.preventDefault();
-
-
-
-    });
-
-  });
 
 });

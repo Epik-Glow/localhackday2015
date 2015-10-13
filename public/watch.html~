@@ -28,35 +28,34 @@
 	  <button type="submit" class="btn btn-default" id="roomButton">Submit</button>
 	</form>
       </div>
-      <div id="buttons">
-	<div class="row">
-	  <div class="col-xs-6 col-sm-3 col-md-1 col-md-offset-2"><button class="btn btn-default btn-block btn-lg" id="playButton">
-              <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-	  </button></div>
-	  <div class="col-xs-6 col-sm-3 col-md-1"><button class="btn btn-default btn-block btn-lg" id="Mute">
-              <span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
-	  </button></div>
-	  <div class="col-xs-12  col-sm-6 col-md-2">
-            <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span><input type="range"></input>
-	  </div>
+      <div class="row" id="buttons">
+	<div class="col-xs-6 col-sm-3 col-md-1 col-md-offset-2"><button class="btn btn-default btn-block btn-lg" id="playButton">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	</button></div>
+	<div class="col-xs-6 col-sm-3 col-md-1"><button class="btn btn-default btn-block btn-lg" id="Mute">
+            <span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
+	</button></div>
+	<div class="col-xs-12  col-sm-6 col-md-2">
+          <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span><input type="range"></input>
 	</div>
-	<br>
-	<div class="row">
-	  <form id="urlForm" class="form-horizontal">
-            <div class="form-group">
-              <label for="youtubeUrl" class="col-md-2 control-label">Youtube URL</label>
-              <div class="col-md-5">
-		<input type="url" class="form-control" id="youtubeUrl" placeholder="URL">
-		
-		
-              </div>
-              <button type="submit" class="btn btn-default" id="urlButton">Submit</button>
+      </div>
+      <br>
+      <div class="row">
+	<form id="urlForm" class="form-horizontal">
+          <div class="form-group">
+            <label for="youtubeUrl" class="col-md-2 control-label">Youtube URL</label>
+            <div class="col-md-5">
+              <input type="url" class="form-control" id="youtubeUrl" placeholder="URL">
+	      
 	      
             </div>
+            <button type="submit" class="btn btn-default" id="urlButton">Submit</button>
 	    
-	  </form>
+          </div>
 	  
-	</div>
+	</form>
+	
+	
       </div>
   </body>
 </html>
