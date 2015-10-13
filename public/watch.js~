@@ -1,0 +1,55 @@
+$(document).ready(function(){
+  var connection;
+  var socket;
+
+  $("#buttons").hide();
+  $("#status").hide();
+
+
+  $("#roomForm").on('submit', function (e) {
+    e.preventDefault();
+    $("#roomButton").attr("disabled", "disabled");
+
+    $("#roomButton").html("Connecting...");
+    $("#status").removeAttr("class");
+    $("#status").html("");
+
+    socket = io();
+
+    socket.on('connect', function(){
+      socket.emit("message", 'Hi');
+     $("#roomForm").hide(500);
+     $("#status").html("Connected to " + $("#roomInput").val());
+     $("#status").show(500);
+     $("#buttons").show(500);
+    });
+
+    socket.on('message', function(msg){
+      console.log(msg);
+    });
+
+    socket.on('error', function(error){
+      console.log(error);
+      $("#roomButton").html("Submit");
+      $("#roomButton").removeAttr("disabled");
+      $("#status").html("Could not connect");
+      $("#status").attr("class", "alert alert-danger");
+    });
+
+  });
+
+  httpGetAsync("http://45.55.144.205:8080/room", blah);
+  function httpGetAsync(url, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("POST", url, true); // true for asynchronous
+    xmlHttp.send(null);
+  }
+
+  function blah(e){
+    console.log(e);
+  }
+});
