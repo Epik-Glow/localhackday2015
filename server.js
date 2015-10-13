@@ -4,6 +4,8 @@ var app = express();
 var io = require('socket.io')(http);
 var compression = require('compression');
 
+var users = {};
+var numUsers = 0;
 var rooms = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
@@ -29,19 +31,26 @@ app.route('/room')
     });
 
 io.on('connection', function(socket) {
+    numUsers++;
+    var user = users[numUsers] = {};
+
     console.log("User has connected");
 
-    socket.on('roomCode', function (code) {
+    socket.on('roomCode', function(code) {
         if (code.toString() in rooms) {
-            socket.join(code);  // Joins socket with the unique room
-            socket.emit('room', { exists: true });
+            user.room = code;
+            socket.join(code); // Joins socket with the unique room
+            socket.emit('room', {
+                exists: true
+            });
         } else {
-            socket.emit('room', { exists: false });
+            socket.emit('room', {
+                exists: false
+            });
         }
     });
 
-    socket.on('playlistUpdate', function (roomCode, videoId) {
-    });
+    socket.on('playlistUpdate', function(roomCode, videoId) {});
 
     socket.on('disconnect', function() {
         console.log('User disconnected');
