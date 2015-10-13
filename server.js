@@ -29,6 +29,8 @@ app.route('/room')
     });
 
 io.on('connection', function(socket) {
+    console.log("User has connected");
+
     socket.on('roomCode', function (code) {
         if (code.toString() in rooms) {
             socket.join(code);  // Joins socket with the unique room
@@ -36,6 +38,9 @@ io.on('connection', function(socket) {
         } else {
             socket.emit('room', { exists: false });
         }
+    });
+
+    socket.on('playlistUpdate', function (roomCode, videoId) {
     });
 
     socket.on('disconnect', function() {
