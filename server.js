@@ -30,7 +30,7 @@ app.route('/room')
 
 io.on('connection', function(socket) {
     socket.on('roomCode', function (code) {
-        if (code.toString() in rooms {
+        if (code.toString() in rooms) {
             socket.join(code);  // Joins socket with the unique room
             socket.emit('room', { exists: true });
         } else {
