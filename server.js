@@ -4,7 +4,7 @@ var app = express();
 var io = require('socket.io')(http);
 var compression = require('compression');
 
-var room = {}; // Store rooms using randomly generated 6 dig codes as keys
+var rooms = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
 app.use(express.static(__dirname + '/public'));
@@ -29,10 +29,15 @@ app.route('/room')
     });
 
 io.on('connection', function(socket) {
-    console.log('User connected');
+    socket.on('roomCode', function (code) {
+        if (code.toString() in rooms {
+            socket.join(code);  // Joins socket with the unique room
+            socket.emit('room', { exists: true });
+        } else {
+            socket.emit('room', { exists: false });
+        }
+    });
 
-    io.emit('test', { code: '123456' });
-    console.log('Sent \'test\' event');
     socket.on('disconnect', function() {
         console.log('User disconnected');
     });
