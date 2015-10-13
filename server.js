@@ -9,10 +9,10 @@ var numUsers = 0;
 var rooms = {}; // Store rooms using randomly generated 6 dig codes as keys
 
 app.use(compression());
-//app.use(express.static('/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-    res.sendFile('/public/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.route('/room')
@@ -59,7 +59,7 @@ io.on('connection', function(socket) {
     });
 });
 
-var server = http.listen(8080, function() {
+var server = app.listen(8080, function() {
     var host = server.address()
         .address;
     var port = server.address()
